@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+/* Premium Gemstone Design System - Light Theme */
+
+@layer base {
+  :root {
+    /* Core backgrounds - Soft warm whites */
+    --background: 40 30% 98%;
+    --foreground: 230 25% 15%;
+
+    /* Card surfaces */
+    --card: 40 20% 99%;
+    --card-foreground: 230 25% 15%;
+    --card-glass: 40 30% 96%;
+
+    /* Popover */
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 25% 15%;
+
+    /* Primary - Rich gold */
+    --primary: 35 80% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Soft warm gray */
+    --secondary: 40 15% 92%;
+    --secondary-foreground: 230 25% 15%;
+
+    /* Muted elements */
+    --muted: 40 20% 94%;
+    --muted-foreground: 230 10% 45%;
+
+    /* Accent - Warm rose gold */
+    --accent: 15 50% 90%;
+    --accent-foreground: 230 25% 15%;
+
+    /* Destructive */
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs */
+    --border: 40 20% 88%;
+    --input: 40 20% 92%;
+    --ring: 35 80% 45%;
+
+    --radius: 1rem;
+
+    /* Sidebar */
+    --sidebar-background: 40 25% 97%;
+    --sidebar-foreground: 230 25% 15%;
+    --sidebar-primary: 35 80% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 15% 92%;
+    --sidebar-accent-foreground: 230 25% 15%;
+    --sidebar-border: 40 20% 88%;
+    --sidebar-ring: 35 80% 45%;
+
+    /* Custom gemstone colors */
+    --gem-ruby: 350 75% 50%;
+    --gem-emerald: 145 55% 40%;
+    --gem-sapphire: 220 75% 50%;
+    --gem-amethyst: 280 55% 50%;
+    --gem-topaz: 40 85% 50%;
+    --gem-diamond: 200 15% 70%;
+    --gem-opal: 320 55% 60%;
+    --gem-pearl: 45 25% 80%;
+
+    /* Gradients */
+    --gradient-luxury: linear-gradient(135deg, hsl(40 30% 98%) 0%, hsl(40 25% 95%) 50%, hsl(45 20% 97%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.9) 0%, hsla(40 20% 98% / 0.7) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(35 80% 50%) 0%, hsl(25 85% 45%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(40 30% 98%) 0%, hsl(35 25% 94%) 100%);
+
+    /* Shadows */
+    --shadow-glass: 0 8px 32px hsla(230 30% 20% / 0.08);
+    --shadow-glow: 0 0 40px hsla(35 80% 50% / 0.1);
+    --shadow-card: 0 4px 24px hsla(230 30% 20% / 0.06);
+    --shadow-card-hover: 0 12px 48px hsla(230 30% 20% / 0.12);
+  }
+
+  .dark {
+    --background: 230 50% 8%;
+    --foreground: 45 30% 96%;
+    --card: 230 30% 12%;
+    --card-foreground: 45 30% 96%;
+    --popover: 230 40% 10%;
+    --popover-foreground: 45 30% 96%;
+    --primary: 45 70% 60%;
+    --primary-foreground: 230 50% 8%;
+    --secondary: 270 30% 25%;
+    --secondary-foreground: 45 30% 96%;
+    --muted: 230 30% 18%;
+    --muted-foreground: 230 15% 60%;
+    --accent: 270 40% 35%;
+    --accent-foreground: 45 30% 96%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 45 30% 96%;
+    --border: 230 30% 20%;
+    --input: 230 30% 18%;
+    --ring: 45 70% 60%;
+    --sidebar-background: 230 50% 8%;
+    --sidebar-foreground: 45 30% 96%;
+    --sidebar-primary: 45 70% 60%;
+    --sidebar-primary-foreground: 230 50% 8%;
+    --sidebar-accent: 270 30% 25%;
+    --sidebar-accent-foreground: 45 30% 96%;
+    --sidebar-border: 230 30% 20%;
+    --sidebar-ring: 45 70% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    background: var(--gradient-luxury);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card - Light theme */
+  .glass-card {
+    @apply relative overflow-hidden rounded-2xl bg-card;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      hsla(0 0% 100% / 0.5) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+
+  /* Luxury heading font */
+  .font-display {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* Gemstone glow effects - Light theme */
+  .glow-ruby { box-shadow: 0 8px 40px hsla(350 75% 50% / 0.25); border-color: hsl(350 75% 50% / 0.3); }
+  .glow-emerald { box-shadow: 0 8px 40px hsla(145 55% 40% / 0.25); border-color: hsl(145 55% 40% / 0.3); }
+  .glow-sapphire { box-shadow: 0 8px 40px hsla(220 75% 50% / 0.25); border-color: hsl(220 75% 50% / 0.3); }
+  .glow-amethyst { box-shadow: 0 8px 40px hsla(280 55% 50% / 0.25); border-color: hsl(280 55% 50% / 0.3); }
+  .glow-topaz { box-shadow: 0 8px 40px hsla(40 85% 50% / 0.25); border-color: hsl(40 85% 50% / 0.3); }
+  .glow-diamond { box-shadow: 0 8px 40px hsla(200 15% 70% / 0.35); border-color: hsl(200 15% 70% / 0.4); }
+  .glow-opal { box-shadow: 0 8px 40px hsla(320 55% 60% / 0.25); border-color: hsl(320 55% 60% / 0.3); }
+  .glow-pearl { box-shadow: 0 8px 40px hsla(45 25% 80% / 0.35); border-color: hsl(45 25% 80% / 0.4); }
+
+  /* Pill tag styles */
+  .gem-tag {
+    @apply px-3 py-1.5 rounded-full text-xs font-medium;
+    background: hsl(var(--secondary));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+  }
+
+  /* Gold text gradient */
+  .text-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Subtle divider */
+  .divider-glow {
+    @apply h-px w-full;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsla(35 80% 45% / 0.4) 50%,
+      transparent 100%
+    );
+  }
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+}
