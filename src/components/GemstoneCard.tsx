@@ -1,85 +1,124 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { Gemstone } from "@/data/gemstones";
 
 interface GemstoneCardProps {
   gemstone: Gemstone;
   index: number;
+  onOpenPreview?: (gemstone: Gemstone) => void;
 }
 
-const GemstoneCard = ({ gemstone, index }: GemstoneCardProps) => {
+const GemstoneCard: React.FC<GemstoneCardProps> = ({
+  gemstone,
+  index,
+  onOpenPreview,
+}) => {
+  const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate(`/gemstone/${gemstone.id}`);
-  };
-
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-      whileHover={{ y: -8 }}
-      onClick={handleClick}
-      className="group cursor-pointer"
+    <motion.div
+      className="bg-white rounded-3xl shadow-lg p-5 flex flex-col cursor-pointer"
+      style={{ minHeight: "520px" }}
+      whileHover={{
+        y: -5,
+        boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+      }}
+      transition={{ duration: 0.3 }}
+      onClick={() => navigate(`/gemstone/${gemstone.id}`)}
     >
+      {/* Image */}
       <div
-        className={`glass-card h-full transition-all duration-500 group-hover:${gemstone.glowClass}`}
-        style={{
-          boxShadow: "var(--shadow-card)",
+        className="relative mb-4 rounded-2xl overflow-hidden bg-gray-100 cursor-zoom-in group"
+        style={{ aspectRatio: "1 / 1" }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onOpenPreview?.(gemstone);
         }}
       >
-        {/* Hover glow overlay */}
-        <div
-          className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl ${gemstone.glowClass}`}
-          style={{ zIndex: -1 }}
+        <img
+          src={gemstone.image}
+          alt={gemstone.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-
-        {/* Image Container */}
-        <div className="relative h-56 overflow-hidden rounded-t-2xl">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80 z-10" />
-          <motion.img
-            src={gemstone.image}
-            alt={gemstone.name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          {/* Floating particles effect on hover */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-primary/60 animate-float" />
-            <div className="absolute top-8 right-8 w-1 h-1 rounded-full bg-primary/40 animate-float animation-delay-200" />
-            <div className="absolute top-12 right-6 w-1.5 h-1.5 rounded-full bg-primary/50 animate-float animation-delay-400" />
-          </div>
+        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <span className="bg-white/90 text-black px-4 py-2 rounded-full text-sm font-semibold shadow-md">
+            View Details
+          </span>
         </div>
+      </div>
 
-        {/* Content */}
-        <div className="p-6 space-y-4">
-          {/* Title */}
-          <h3 className="font-display text-2xl font-semibold tracking-wide text-foreground group-hover:text-primary transition-colors duration-300">
+      {/* Content */}
+      <div className="flex-1 flex flex-col px-1">
+        <div className="flex justify-between items-start mb-1">
+          <h3 className="font-semibold text-xl text-gray-900">
             {gemstone.name}
           </h3>
+          {/* Like */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsLiked(!isLiked);
+            }}
+            className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all"
+            style={{ borderColor: isLiked ? "#9B2533" : "#E5E7EB" }}
+          >
+            <svg
+              className="w-5 h-5"
+              fill={isLiked ? "#9B2533" : "none"}
+              stroke={isLiked ? "#9B2533" : "#9CA3AF"}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
+            </svg>
+          </button>
+        </div>
 
-          {/* Description */}
-          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
-            {gemstone.shortDescription}
-          </p>
+        {/* Description */}
+        <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+          {gemstone.shortDescription}
+        </p>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2">
-            <span className="gem-tag">{gemstone.color}</span>
-            <span className="gem-tag">{gemstone.zodiac}</span>
-            <span className="gem-tag">{gemstone.rarity}</span>
-          </div>
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          <span className="gem-tag">{gemstone.color}</span>
+          <span className="gem-tag">{gemstone.zodiac}</span>
+          <span className="gem-tag">{gemstone.rarity}</span>
+        </div>
 
-          {/* View Details Link */}
-          <div className="pt-2 flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all duration-300">
-            <span>View Details</span>
-            <ArrowRight className="w-4 h-4" />
+        {/* Footer */}
+        <div className="mt-auto">
+          {gemstone.price && (
+            <p className="text-3xl font-bold text-gray-900 mb-4">
+              {gemstone.price}
+            </p>
+          )}
+          <div className="flex gap-3">
+            <a
+              href={gemstone.buyLink || "#"}
+              className="flex-1 py-3 rounded-full font-semibold text-center text-white"
+              style={{ backgroundColor: "#9B2533" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              Buy Now
+            </a>
+            <button
+              className="flex-1 py-3 rounded-full font-semibold border-2 bg-white"
+              style={{ borderColor: "#9B2533", color: "#9B2533" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
-    </motion.article>
+    </motion.div>
   );
 };
 
