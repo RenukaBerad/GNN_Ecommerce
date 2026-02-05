@@ -1,8 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 /* Premium Gemstone Design System - Light Theme */
 
@@ -69,10 +68,27 @@
     --gem-pearl: 45 25% 80%;
 
     /* Gradients */
-    --gradient-luxury: linear-gradient(135deg, hsl(40 30% 98%) 0%, hsl(40 25% 95%) 50%, hsl(45 20% 97%) 100%);
-    --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.9) 0%, hsla(40 20% 98% / 0.7) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(35 80% 50%) 0%, hsl(25 85% 45%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(40 30% 98%) 0%, hsl(35 25% 94%) 100%);
+    --gradient-luxury: linear-gradient(
+      135deg,
+      hsl(40 30% 98%) 0%,
+      hsl(40 25% 95%) 50%,
+      hsl(45 20% 97%) 100%
+    );
+    --gradient-glass: linear-gradient(
+      135deg,
+      hsla(0 0% 100% / 0.9) 0%,
+      hsla(40 20% 98% / 0.7) 100%
+    );
+    --gradient-gold: linear-gradient(
+      135deg,
+      hsl(35 80% 50%) 0%,
+      hsl(25 85% 45%) 100%
+    );
+    --gradient-hero: linear-gradient(
+      180deg,
+      hsl(40 30% 98%) 0%,
+      hsl(35 25% 94%) 100%
+    );
 
     /* Shadows */
     --shadow-glass: 0 8px 32px hsla(230 30% 20% / 0.08);
@@ -123,7 +139,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     background: var(--gradient-luxury);
     min-height: 100vh;
   }
@@ -140,7 +156,7 @@
   }
 
   .glass-card::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -153,18 +169,42 @@
 
   /* Luxury heading font */
   .font-display {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: "Cormorant Garamond", serif;
   }
 
   /* Gemstone glow effects - Light theme */
-  .glow-ruby { box-shadow: 0 8px 40px hsla(350 75% 50% / 0.25); border-color: hsl(350 75% 50% / 0.3); }
-  .glow-emerald { box-shadow: 0 8px 40px hsla(145 55% 40% / 0.25); border-color: hsl(145 55% 40% / 0.3); }
-  .glow-sapphire { box-shadow: 0 8px 40px hsla(220 75% 50% / 0.25); border-color: hsl(220 75% 50% / 0.3); }
-  .glow-amethyst { box-shadow: 0 8px 40px hsla(280 55% 50% / 0.25); border-color: hsl(280 55% 50% / 0.3); }
-  .glow-topaz { box-shadow: 0 8px 40px hsla(40 85% 50% / 0.25); border-color: hsl(40 85% 50% / 0.3); }
-  .glow-diamond { box-shadow: 0 8px 40px hsla(200 15% 70% / 0.35); border-color: hsl(200 15% 70% / 0.4); }
-  .glow-opal { box-shadow: 0 8px 40px hsla(320 55% 60% / 0.25); border-color: hsl(320 55% 60% / 0.3); }
-  .glow-pearl { box-shadow: 0 8px 40px hsla(45 25% 80% / 0.35); border-color: hsl(45 25% 80% / 0.4); }
+  .glow-ruby {
+    box-shadow: 0 8px 40px hsla(350 75% 50% / 0.25);
+    border-color: hsl(350 75% 50% / 0.3);
+  }
+  .glow-emerald {
+    box-shadow: 0 8px 40px hsla(145 55% 40% / 0.25);
+    border-color: hsl(145 55% 40% / 0.3);
+  }
+  .glow-sapphire {
+    box-shadow: 0 8px 40px hsla(220 75% 50% / 0.25);
+    border-color: hsl(220 75% 50% / 0.3);
+  }
+  .glow-amethyst {
+    box-shadow: 0 8px 40px hsla(280 55% 50% / 0.25);
+    border-color: hsl(280 55% 50% / 0.3);
+  }
+  .glow-topaz {
+    box-shadow: 0 8px 40px hsla(40 85% 50% / 0.25);
+    border-color: hsl(40 85% 50% / 0.3);
+  }
+  .glow-diamond {
+    box-shadow: 0 8px 40px hsla(200 15% 70% / 0.35);
+    border-color: hsl(200 15% 70% / 0.4);
+  }
+  .glow-opal {
+    box-shadow: 0 8px 40px hsla(320 55% 60% / 0.25);
+    border-color: hsl(320 55% 60% / 0.3);
+  }
+  .glow-pearl {
+    box-shadow: 0 8px 40px hsla(45 25% 80% / 0.35);
+    border-color: hsl(45 25% 80% / 0.4);
+  }
 
   /* Pill tag styles */
   .gem-tag {
