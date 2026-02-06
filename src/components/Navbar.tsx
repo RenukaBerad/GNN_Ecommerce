@@ -54,7 +54,7 @@ const Navbar = () => {
           Call Now
         </a>
       </div>
-      <nav className="fixed top-5 left-0 right-0 z-40 flex justify-start md:justify-center items-start px-1">
+      <nav className="fixed top-5 left-0 right-0 z-40 flex justify-between md:justify-center items-center px-4">
         <div
           className="hidden md:flex w-full max-w-[700px] bg-cream rounded-full px-4 py-1 items-center shadow-lg gap-4"
           style={{ fontFamily: "Matter, sans-serif" }}
@@ -111,26 +111,24 @@ const Navbar = () => {
               ),
             )}
           </div>
-
-          {/* ================= Mobile Menu Button ================= */}
-          <button
-            className="md:hidden text-black p-1"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
 
         {/* ================= Mobile Menu ================= */}
         {/* ================= Mobile Hamburger Only ================= */}
         <button
-          className="md:hidden text-black p-2 ml-4"
+          className=" md:hidden
+    fixed
+    top-5
+    left-4
+    z-50
+    text-white
+    p-2"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
         {isOpen && (
-          <div className="fixed inset-0 top-[100px] z-40 bg-cream/95 backdrop-blur-md p-4 md:hidden">
+          <div className="fixed inset-0 top-[80px] z-40 bg-cream/95 backdrop-blur-md p-4 md:hidden">
             <div className="flex flex-col space-y-5 items-center pt-8">
               {navLinks.map((link) =>
                 link.children ? (
