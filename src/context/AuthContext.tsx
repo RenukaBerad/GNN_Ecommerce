@@ -1,0 +1,57 @@
+import React, { createContext, useState, useEffect, useContext } from "react";
+import axios from "axios";
+
+interface User {
+    _id: string;
+    username: string;
+    isAdmin: boolean;
+    token: string;
+}
+
+interface AuthContextType {
+    user: User | null;
+    login: (userData: User) => void;
+    logout: () => void;
+    isLoading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+    children,
+}) => {
+    const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem("adminUser");
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+        setIsLoading(false);
+    }, []);
+
+    const login = (userData: User) => {
+        localStorage.setItem("adminUser", JSON.stringify(userData));
+        setUser(userData);
+    };
+
+    const logout = () => {
+        localStorage.removeItem("adminUser");
+        setUser(null);
+    };
+
+    return (
+        <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
+};

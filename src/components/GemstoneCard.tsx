@@ -26,7 +26,7 @@ const GemstoneCard: React.FC<GemstoneCardProps> = ({
         boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
       }}
       transition={{ duration: 0.3 }}
-      onClick={() => navigate(`/gemstone/${gemstone.id}`)}
+      onClick={() => navigate(`/gemstone/${(gemstone as any)._id || gemstone.id}`)}
     >
       {/* Image */}
       <div

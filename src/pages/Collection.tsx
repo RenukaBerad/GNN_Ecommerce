@@ -1,10 +1,26 @@
 import { motion } from "framer-motion";
-import { gemstones } from "@/data/gemstones";
+import { useState, useEffect } from "react";
+import api from "@/lib/api";
 import GemstoneCard from "@/components/GemstoneCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Gemstone } from "@/data/gemstones";
 
 const Collection = () => {
+  const [gemstones, setGemstones] = useState<Gemstone[]>([]);
+
+  useEffect(() => {
+    const fetchGemstones = async () => {
+      try {
+        const { data } = await api.get("/products/gemstones");
+        setGemstones(data);
+      } catch (error) {
+        console.error("Failed to fetch gemstones", error);
+      }
+    };
+    fetchGemstones();
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -27,12 +43,10 @@ const Collection = () => {
 
           </motion.div>
 
-
-
           {/* Gemstone Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
             {gemstones.map((gemstone, index) => (
-              <GemstoneCard key={gemstone.id} gemstone={gemstone} index={index} />
+              <GemstoneCard key={(gemstone as any)._id || gemstone.id} gemstone={gemstone} index={index} />
             ))}
           </div>
         </div>

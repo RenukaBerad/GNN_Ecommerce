@@ -1,8 +1,23 @@
 import BraceletCard from "./BraceletCard";
-import { bracelets } from "@/data/bracelet"; // your bracelet data
+import { useState, useEffect } from "react";
+import api from "@/lib/api";
 import { motion } from "framer-motion";
 
 const BraceletGrid = () => {
+  const [bracelets, setBracelets] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchBracelets = async () => {
+      try {
+        const { data } = await api.get("/products/bracelets");
+        setBracelets(data);
+      } catch (error) {
+        console.error("Failed to fetch bracelets", error);
+      }
+    };
+    fetchBracelets();
+  }, []);
+
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 mb-24">
       <motion.div
@@ -12,7 +27,7 @@ const BraceletGrid = () => {
         transition={{ duration: 0.5 }}
       >
         {bracelets.map((bracelet) => (
-          <BraceletCard key={bracelet.id} bracelet={bracelet} />
+          <BraceletCard key={bracelet._id} bracelet={bracelet} />
         ))}
       </motion.div>
     </section>
