@@ -10,6 +10,7 @@ export interface Tree {
   name: string;
   image: string;
   numerology: string;
+  description: string;
   price: string; // 👈 ADD THIS
   buyLink?: string;
 }
@@ -19,8 +20,9 @@ export interface Bracelet {
   name: string;
   image: string;
   numerology: string;
-  price: string; // 👈 ADD THIS
-  buyLink?: string;
+  description: string;
+  price: string;
+  buyLink: string;
 }
 
 export type CollectionCategory = "gemstones" | "bracelets" | "trees";
