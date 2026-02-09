@@ -30,12 +30,8 @@ const GemstoneCard: React.FC<GemstoneCardProps> = ({
     >
       {/* Image */}
       <div
-        className="relative mb-4 rounded-2xl overflow-hidden bg-gray-100 cursor-zoom-in group"
+        className="relative mb-4 rounded-2xl overflow-hidden bg-gray-100 cursor-pointer group"
         style={{ aspectRatio: "1 / 1" }}
-        onClick={(e) => {
-          e.stopPropagation();
-          onOpenPreview?.(gemstone);
-        }}
       >
         <img
           src={gemstone.image}
@@ -86,11 +82,7 @@ const GemstoneCard: React.FC<GemstoneCardProps> = ({
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          <span className="gem-tag">{gemstone.color}</span>
-          <span className="gem-tag">{gemstone.zodiac}</span>
-          <span className="gem-tag">{gemstone.rarity}</span>
-        </div>
+
 
         {/* Footer */}
         <div className="mt-auto">

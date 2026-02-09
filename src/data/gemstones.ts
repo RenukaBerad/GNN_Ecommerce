@@ -23,6 +23,8 @@ export interface Gemstone {
   benefits: string[];
   whoShouldWear: string[];
   careInstructions: string[];
+  price?: string;
+  buyLink?: string;
 }
 
 export const gemstones: Gemstone[] = [
@@ -57,6 +59,7 @@ export const gemstones: Gemstone[] = [
       "Store separately to prevent scratching other gems",
       "Avoid prolonged exposure to extreme heat",
     ],
+    price: "₹1,25,000",
   },
   {
     id: "emerald",
@@ -89,6 +92,7 @@ export const gemstones: Gemstone[] = [
       "Avoid exposure to heat and harsh chemicals",
       "Oil treatments may need periodic renewal",
     ],
+    price: "₹85,000",
   },
   {
     id: "sapphire",
@@ -121,6 +125,7 @@ export const gemstones: Gemstone[] = [
       "Store in a soft cloth to prevent scratches",
       "Avoid harsh chemicals and extreme temperature changes",
     ],
+    price: "₹95,000",
   },
   {
     id: "amethyst",
@@ -153,6 +158,7 @@ export const gemstones: Gemstone[] = [
       "Safe for ultrasonic cleaning",
       "Store away from heat sources to preserve color",
     ],
+    price: "₹15,000",
   },
   {
     id: "topaz",
@@ -185,6 +191,7 @@ export const gemstones: Gemstone[] = [
       "Protect from sharp blows (perfect cleavage)",
       "Store separately in a soft pouch",
     ],
+    price: "₹45,000",
   },
   {
     id: "diamond",
@@ -217,6 +224,7 @@ export const gemstones: Gemstone[] = [
       "Check prongs periodically for loose settings",
       "Store separately as diamonds can scratch other gems",
     ],
+    price: "₹2,50,000",
   },
   {
     id: "opal",
@@ -249,6 +257,7 @@ export const gemstones: Gemstone[] = [
       "Avoid extreme temperature changes",
       "Store in moist cotton to prevent cracking",
     ],
+    price: "₹25,000",
   },
   {
     id: "pearl",
@@ -281,6 +290,7 @@ export const gemstones: Gemstone[] = [
       "Avoid contact with perfumes, hairspray, cosmetics",
       "Store separately in a soft cloth bag",
     ],
+    price: "₹65,000",
   },
 ];
 
