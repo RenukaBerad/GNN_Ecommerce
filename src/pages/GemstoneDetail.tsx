@@ -51,18 +51,18 @@ const GemstoneDetail = () => {
             <span className="text-sm font-medium">Back to Collection</span>
           </motion.button>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Image */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Left Column: Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
-              className="relative"
+              className="relative sticky top-32"
             >
               <div
                 className={`glass-card p-4 overflow-hidden transition-all duration-500 hover:${gemstone.glowClass}`}
               >
-                <div className="aspect-square rounded-xl overflow-hidden">
+                <div className="aspect-[4/3] rounded-xl overflow-hidden">
                   <img
                     src={gemstone.image}
                     alt={gemstone.name}
@@ -75,20 +75,26 @@ const GemstoneDetail = () => {
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/20 rounded-full blur-2xl" />
             </motion.div>
 
-            {/* Content */}
+            {/* Right Column: Content */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="space-y-8"
             >
-              {/* Header */}
+              {/* Branding / Tags */}
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium tracking-wider text-primary uppercase">
+                  Natural Gemstone
+                </span>
+                <span className="px-3 py-1 bg-secondary rounded-full text-xs font-medium text-foreground">
+                  {gemstone.rarity}
+                </span>
+              </div>
+
+              {/* Title & Description */}
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="gem-tag">{gemstone.rarity}</span>
-                  <span className="gem-tag">{gemstone.zodiac}</span>
-                </div>
-                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground mb-4">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
                   {gemstone.name}
                 </h1>
                 <p className="text-muted-foreground text-lg leading-relaxed">
@@ -96,37 +102,95 @@ const GemstoneDetail = () => {
                 </p>
               </div>
 
-              {/* Quick Facts */}
-              <div className="grid grid-cols-2 gap-4">
-                {quickFacts.map((fact, index) => (
-                  <motion.div
-                    key={fact.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                    className="glass-card p-4"
-                  >
-                    <div className="flex items-center gap-3 mb-2">
-                      <fact.icon className="w-4 h-4 text-primary" />
-                      <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                        {fact.label}
-                      </span>
-                    </div>
-                    <p className="font-display text-lg text-foreground">
-                      {fact.value}
-                    </p>
-                  </motion.div>
-                ))}
+              {/* Price */}
+              <div className="border-t border-b border-border py-6">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-foreground">
+                    {gemstone.price}
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    (Inclusive of all taxes)
+                  </span>
+                </div>
               </div>
 
-              {/* CTA */}
-              <div className="flex flex-wrap gap-4">
-                <button className="px-8 py-4 rounded-full bg-primary text-primary-foreground font-medium text-lg hover:shadow-lg hover:shadow-primary/25 transition-all duration-300">
-                  Inquire About This Stone
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  className="flex-1 px-8 py-4 rounded-full bg-primary text-primary-foreground font-medium text-lg hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform active:scale-[0.98]"
+                >
+                  Buy Now
                 </button>
-                <button className="px-8 py-4 rounded-full bg-secondary border border-border text-foreground font-medium text-lg hover:bg-muted transition-all duration-300">
-                  Book Viewing
+                <button
+                  className="flex-1 px-8 py-4 rounded-full bg-secondary border border-border text-foreground font-medium text-lg hover:bg-muted transition-all duration-300 transform active:scale-[0.98]"
+                >
+                  Add to Cart
                 </button>
+              </div>
+
+              {/* Standardized Product Details Grid */}
+              <div className="bg-secondary/30 rounded-2xl p-6 backdrop-blur-sm border border-border/50">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  Product Specifications
+                </h3>
+                <div className="grid grid-cols-1 gap-y-4">
+                  {/* COLOR */}
+                  <div className="grid grid-cols-3 gap-4 items-center border-b border-border/50 pb-3 last:border-0 last:pb-0">
+                    <span className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                      Color
+                    </span>
+                    <span className="col-span-2 font-medium text-foreground">
+                      {gemstone.color}
+                    </span>
+                  </div>
+
+                  {/* HARDNESS */}
+                  <div className="grid grid-cols-3 gap-4 items-center border-b border-border/50 pb-3 last:border-0 last:pb-0">
+                    <span className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                      Hardness
+                    </span>
+                    <span className="col-span-2 font-medium text-foreground">
+                      {gemstone.hardness}
+                    </span>
+                  </div>
+
+                  {/* ZODIAC */}
+                  <div className="grid grid-cols-3 gap-4 items-center border-b border-border/50 pb-3 last:border-0 last:pb-0">
+                    <span className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                      Zodiac
+                    </span>
+                    <span className="col-span-2 font-medium text-foreground">
+                      {gemstone.zodiac}
+                    </span>
+                  </div>
+
+                  {/* CHAKRA */}
+                  <div className="grid grid-cols-3 gap-4 items-center border-b border-border/50 pb-3 last:border-0 last:pb-0">
+                    <span className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                      Chakra
+                    </span>
+                    <span className="col-span-2 font-medium text-foreground">
+                      {gemstone.chakra}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Trust Badges */}
+              <div className="grid grid-cols-3 gap-4 pt-4">
+                <div className="text-center p-3 rounded-xl bg-secondary/20">
+                  <Shield className="w-6 h-6 text-primary mx-auto mb-2" />
+                  <span className="text-xs font-medium block">Certified Authentic</span>
+                </div>
+                <div className="text-center p-3 rounded-xl bg-secondary/20">
+                  <Gem className="w-6 h-6 text-primary mx-auto mb-2" />
+                  <span className="text-xs font-medium block">Natural Stone</span>
+                </div>
+                <div className="text-center p-3 rounded-xl bg-secondary/20">
+                  <Sparkles className="w-6 h-6 text-primary mx-auto mb-2" />
+                  <span className="text-xs font-medium block">Premium Quality</span>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -149,17 +213,17 @@ const GemstoneDetail = () => {
                 <div className="p-2.5 rounded-lg bg-primary/10">
                   <Sparkles className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-foreground">
+                <h3 className="text-xl font-bold text-foreground">
                   Benefits
                 </h3>
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {gemstone.benefits.map((benefit, index) => (
                   <li
                     key={index}
-                    className="flex items-start gap-3 text-muted-foreground text-sm leading-relaxed"
+                    className="flex items-start gap-3 text-foreground text-base leading-relaxed"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
                     {benefit}
                   </li>
                 ))}
@@ -178,17 +242,17 @@ const GemstoneDetail = () => {
                 <div className="p-2.5 rounded-lg bg-primary/10">
                   <Users className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-foreground">
+                <h3 className="text-xl font-bold text-foreground">
                   Who Should Wear
                 </h3>
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {gemstone.whoShouldWear.map((item, index) => (
                   <li
                     key={index}
-                    className="flex items-start gap-3 text-muted-foreground text-sm leading-relaxed"
+                    className="flex items-start gap-3 text-foreground text-base leading-relaxed"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -207,17 +271,17 @@ const GemstoneDetail = () => {
                 <div className="p-2.5 rounded-lg bg-primary/10">
                   <Shield className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-foreground">
+                <h3 className="text-xl font-bold text-foreground">
                   Care Instructions
                 </h3>
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-3">
                 {gemstone.careInstructions.map((instruction, index) => (
                   <li
                     key={index}
-                    className="flex items-start gap-3 text-muted-foreground text-sm leading-relaxed"
+                    className="flex items-start gap-3 text-foreground text-base leading-relaxed"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
                     {instruction}
                   </li>
                 ))}

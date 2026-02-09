@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { createPortal } from "react-dom";
 import { Bracelet } from "@/types/collection";
-
+//
 interface Props {
   bracelet: Bracelet;
   onOpenPreview?: (bracelet: Bracelet) => void;
