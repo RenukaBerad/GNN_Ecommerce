@@ -26,17 +26,17 @@ const GemstoneCard: React.FC<GemstoneCardProps> = ({
         boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
       }}
       transition={{ duration: 0.3 }}
-      onClick={() => navigate(`/gemstone/${gemstone.id}`)}
+      onClick={() => navigate(`/gemstone/${(gemstone as any)._id || gemstone.id}`)}
     >
       {/* Image */}
-      <div
-        className="relative mb-4 rounded-2xl overflow-hidden bg-gray-100 cursor-pointer group"
-        style={{ aspectRatio: "1 / 1" }}
-      >
+      <div className="aspect-square rounded-lg overflow-hidden mb-4 bg-gray-100 relative cursor-pointer group">
         <img
-          src={gemstone.image}
+          src={gemstone.image || "/images/Gemstone.png"}
           alt={gemstone.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = "/images/Gemstone.png";
+          }}
         />
         <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <span className="bg-white/90 text-black px-4 py-2 rounded-full text-sm font-semibold shadow-md">

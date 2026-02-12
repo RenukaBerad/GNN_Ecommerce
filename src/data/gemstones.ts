@@ -8,6 +8,7 @@ import opalImg from "@/assets/gemstones/opal.jpg";
 import pearlImg from "@/assets/gemstones/pearl.jpg";
 
 export interface Gemstone {
+  _id?: string;
   id: string;
   name: string;
   shortDescription: string;

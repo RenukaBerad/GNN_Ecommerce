@@ -1,14 +1,35 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Heart, Sparkles, Shield, Users, Gem } from "lucide-react";
-import { getGemstoneById } from "@/data/gemstones";
+import { useState, useEffect } from "react";
+import api from "@/lib/api";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Gemstone } from "@/data/gemstones";
 
 const GemstoneDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const gemstone = getGemstoneById(id || "");
+  const [gemstone, setGemstone] = useState<Gemstone | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGemstone = async () => {
+      try {
+        const { data } = await api.get(`/products/gemstones/${id}`);
+        setGemstone(data);
+      } catch (error) {
+        console.error("Failed to fetch gemstone", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGemstone();
+  }, [id]);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
 
   if (!gemstone) {
     return (
@@ -64,9 +85,12 @@ const GemstoneDetail = () => {
               >
                 <div className="aspect-[4/3] rounded-xl overflow-hidden">
                   <img
-                    src={gemstone.image}
+                    src={gemstone.image || "/images/Gemstone.png"}
                     alt={gemstone.name}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/images/Gemstone.png";
+                    }}
                   />
                 </div>
               </div>

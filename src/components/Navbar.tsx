@@ -21,7 +21,6 @@ const Navbar = () => {
 
     { name: "About", path: "/about" },
     { name: "Testimonials", path: "/testimonials" },
-    { name: "Package", path: "/package" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -37,14 +36,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Upper strip background, only visible when scrolling */}
-      {showStrip && (
-        <div
-          className="fixed top-0 left-0 right-0 z-30 w-screen"
-          style={{ background: "rgba(50, 50, 50, 0.95)", height: "80px" }}
-        />
-      )}
-      {/* Call Now Button - upper right, outside Navbar */}
       <div className="fixed top-5 right-8 z-50 hidden md:block">
         <a
           href="tel:+1234567890"
@@ -56,8 +47,12 @@ const Navbar = () => {
       </div>
       <nav className="fixed top-5 left-0 right-0 z-40 flex justify-between md:justify-center items-center px-4">
         <div
-          className="hidden md:flex w-full max-w-[700px] bg-cream rounded-full px-4 py-1 items-center shadow-lg gap-4"
-          style={{ fontFamily: "Matter, sans-serif" }}
+          className="hidden md:flex w-full max-w-[850px] rounded-full px-6 py-2 items-center gap-4 transition-all duration-300 backdrop-blur-[10px]"
+          style={{
+            fontFamily: "Matter, sans-serif",
+            background: "rgba(255, 255, 255, 0.92)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.08)"
+          }}
         >
           {/* ================= Desktop Navigation ================= */}
           <div className="hidden md:flex flex-grow items-center justify-center gap-5 lg:gap-7">
@@ -73,11 +68,10 @@ const Navbar = () => {
                   }
                 >
                   <span
-                    className={`cursor-pointer text-[15px] px-4 py-1.5 rounded-full transition-colors font-medium ${
-                      location.pathname.startsWith(link.path)
-                        ? "text-maroon"
-                        : "text-black hover:text-maroon"
-                    }`}
+                    className={`cursor-pointer text-lg px-4 py-1.5 rounded-full transition-colors font-medium ${location.pathname.startsWith(link.path)
+                      ? "text-maroon"
+                      : "text-black hover:text-maroon"
+                      }`}
                   >
                     {link.name}
                   </span>
@@ -100,11 +94,10 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`text-[15px] px-3 py-1 rounded-full transition-colors text-center ${
-                    location.pathname === link.path
-                      ? "text-maroon font-medium"
-                      : "text-black hover:text-maroon"
-                  }`}
+                  className={`text-lg px-3 py-1 rounded-full transition-colors text-center font-medium ${location.pathname === link.path
+                    ? "text-maroon"
+                    : "text-black hover:text-maroon"
+                    }`}
                 >
                   {link.name}
                 </Link>

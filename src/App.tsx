@@ -6,9 +6,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Collection from "./pages/Collection";
 import GemstoneDetail from "./pages/GemstoneDetail";
+import TreeDetail from "./pages/TreeDetail";
+import BraceletDetail from "./pages/BraceletDetail";
 import Bracelets from "./pages/Bracelets";
 import Trees from "./pages/Trees";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ManageGemstones from "./pages/admin/ManageGemstones";
+import ManageTrees from "./pages/admin/ManageTrees";
+import ManageBracelets from "./pages/admin/ManageBracelets";
+import SearchResults from "./pages/SearchResults";
+import { AuthProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
 
@@ -17,17 +26,30 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/collection" element={<Collection />} />
-          <Route path="/gemstone/:id" element={<GemstoneDetail />} />
-          <Route path="/bracelets" element={<Bracelets />} />
-          <Route path="/trees" element={<Trees />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/collection" element={<Collection />} />
+            <Route path="/gemstone/:id" element={<GemstoneDetail />} />
+            <Route path="/tree/:id" element={<TreeDetail />} />
+            <Route path="/bracelet/:id" element={<BraceletDetail />} />
+            <Route path="/bracelets" element={<Bracelets />} />
+            <Route path="/trees" element={<Trees />} />
+            <Route path="/search" element={<SearchResults />} />
+
+            {/* Admin Routes */}
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/gemstones" element={<ManageGemstones />} />
+            <Route path="/admin/trees" element={<ManageTrees />} />
+            <Route path="/admin/bracelets" element={<ManageBracelets />} />
+
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

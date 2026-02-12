@@ -1,64 +1,50 @@
 import { motion } from "framer-motion";
-import { gemstones } from "@/data/gemstones";
+import { useState, useEffect } from "react";
+import api from "@/lib/api";
 import GemstoneCard from "@/components/GemstoneCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Gemstone } from "@/data/gemstones";
 
 const Collection = () => {
+  const [gemstones, setGemstones] = useState<Gemstone[]>([]);
+
+  useEffect(() => {
+    const fetchGemstones = async () => {
+      try {
+        const { data } = await api.get("/products/gemstones");
+        setGemstones(data);
+      } catch (error) {
+        console.error("Failed to fetch gemstones", error);
+      }
+    };
+    fetchGemstones();
+  }, []);
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-luxury-cream-gradient font-sans">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <span className="text-primary text-sm font-medium tracking-[0.3em] uppercase mb-4 block">
-              Our Collection
-            </span>
-            <h1 className="text-4xl font-bold mb-8 text-center">
-              Explore Our Gemstones
-            </h1>
-
-          </motion.div>
-
-
-
-          {/* Gemstone Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-            {gemstones.map((gemstone, index) => (
-              <GemstoneCard key={gemstone.id} gemstone={gemstone} index={index} />
-            ))}
-          </div>
+      {/* SECTION 1 — DEEP WINE LUXURY HEADING BAND */}
+      <section className="relative w-full h-[250px] bg-luxury-deep-wine flex flex-col items-center justify-center pt-20 px-4 overflow-hidden">
+        <div className="relative text-center z-10">
+          <h1 className="font-playfair text-5xl md:text-6xl text-luxury-gold tracking-wider drop-shadow-lg">
+            Our Gemstones
+          </h1>
+          <div className="mt-6 w-24 h-[2px] bg-luxury-gold mx-auto opacity-80 shadow-[0_0_15px_#c6a75e]"></div>
         </div>
+
+        {/* Subtle fade transition to the section below */}
+        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#f8f5f2] to-transparent opacity-20 pointer-events-none"></div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="glass-card p-12 text-center"
-          >
-            <h2 className="font-display text-3xl md:text-4xl font-semibold text-foreground mb-4">
-              Looking for Something Special?
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
-              Our gemstone experts can help you find the perfect stone for your needs,
-              whether for jewelry, healing, or collection.
-            </p>
-            <button className="px-8 py-4 rounded-full bg-primary text-primary-foreground font-medium text-lg hover:shadow-lg hover:shadow-primary/25 transition-all duration-300">
-              Book a Consultation
-            </button>
-          </motion.div>
+      {/* SECTION 2 — PRODUCT SECTION BACKGROUND */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-[1600px] mx-auto">
+        {/* Gemstone Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {gemstones.map((gemstone, index) => (
+            <GemstoneCard key={(gemstone as any)._id || gemstone.id} gemstone={gemstone} index={index} />
+          ))}
         </div>
       </section>
 
