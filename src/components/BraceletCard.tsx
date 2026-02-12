@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Bracelet } from "@/types/collection";
-//
+
 interface Props {
   bracelet: Bracelet;
   onOpenPreview?: (bracelet: Bracelet) => void;
 }
 
 const BraceletCard: React.FC<Props> = ({ bracelet, onOpenPreview }) => {
+  const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
 
   return (
@@ -16,20 +18,18 @@ const BraceletCard: React.FC<Props> = ({ bracelet, onOpenPreview }) => {
       style={{ minHeight: "520px" }}
       whileHover={{
         y: -5,
-        boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
       }}
-      transition={{ duration: 0.3 }}
+      onClick={() => navigate(`/bracelet/${(bracelet as any)._id || bracelet.id}`)}
     >
-      {/* Image */}
-      <div
-        className="relative mb-4 rounded-2xl overflow-hidden bg-gray-100 cursor-zoom-in group"
-        style={{ aspectRatio: "1 / 1" }}
-        onClick={() => onOpenPreview?.(bracelet)}
-      >
+      <div className="aspect-square rounded-lg overflow-hidden mb-4 bg-gray-100 relative">
         <img
-          src={bracelet.image}
+          src={bracelet.image || "/images/S-Amazonite Bracelet.png"}
           alt={bracelet.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = "/images/S-Amazonite Bracelet.png";
+          }}
         />
 
         <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -53,12 +53,12 @@ const BraceletCard: React.FC<Props> = ({ bracelet, onOpenPreview }) => {
               setIsLiked(!isLiked);
             }}
             className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all"
-            style={{ borderColor: isLiked ? "#FE7028" : "#E5E7EB" }}
+            style={{ borderColor: isLiked ? "#9B2533" : "#E5E7EB" }}
           >
             <svg
               className="w-5 h-5"
-              fill={isLiked ? "#FE7028" : "none"}
-              stroke={isLiked ? "#FE7028" : "#9CA3AF"}
+              fill={isLiked ? "#9B2533" : "none"}
+              stroke={isLiked ? "#9B2533" : "#9CA3AF"}
               viewBox="0 0 24 24"
             >
               <path

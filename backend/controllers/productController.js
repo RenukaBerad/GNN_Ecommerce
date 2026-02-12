@@ -141,7 +141,17 @@ const getTrees = asyncHandler(async (req, res) => {
 // @route   POST /api/products/trees
 // @access  Private/Admin
 const createTree = asyncHandler(async (req, res) => {
-    const { name, numerology, price, buyLink } = req.body;
+    const {
+        name,
+        numerology,
+        price,
+        buyLink,
+        shortDescription,
+        meaning,
+        benefits,
+        whoShouldWear,
+        careInstructions,
+    } = req.body;
     const image = req.file ? req.file.path : null;
 
     if (!image) {
@@ -152,6 +162,11 @@ const createTree = asyncHandler(async (req, res) => {
     const tree = await Tree.create({
         name,
         numerology,
+        shortDescription,
+        meaning,
+        benefits: benefits ? JSON.parse(benefits) : [],
+        whoShouldWear: whoShouldWear ? JSON.parse(whoShouldWear) : [],
+        careInstructions: careInstructions ? JSON.parse(careInstructions) : [],
         image,
         price,
         buyLink,
@@ -189,11 +204,23 @@ const updateTree = asyncHandler(async (req, res) => {
     if (tree) {
         tree.name = req.body.name || tree.name;
         tree.numerology = req.body.numerology || tree.numerology;
+        tree.shortDescription = req.body.shortDescription || tree.shortDescription;
+        tree.meaning = req.body.meaning || tree.meaning;
         tree.price = req.body.price || tree.price;
         tree.buyLink = req.body.buyLink || tree.buyLink;
 
         if (req.file) {
             tree.image = req.file.path;
+        }
+
+        if (req.body.benefits) {
+            tree.benefits = JSON.parse(req.body.benefits);
+        }
+        if (req.body.whoShouldWear) {
+            tree.whoShouldWear = JSON.parse(req.body.whoShouldWear);
+        }
+        if (req.body.careInstructions) {
+            tree.careInstructions = JSON.parse(req.body.careInstructions);
         }
 
         const updatedTree = await tree.save();
@@ -218,7 +245,17 @@ const getBracelets = asyncHandler(async (req, res) => {
 // @route   POST /api/products/bracelets
 // @access  Private/Admin
 const createBracelet = asyncHandler(async (req, res) => {
-    const { name, numerology, price, buyLink } = req.body;
+    const {
+        name,
+        numerology,
+        price,
+        buyLink,
+        shortDescription,
+        meaning,
+        benefits,
+        whoShouldWear,
+        careInstructions,
+    } = req.body;
     const image = req.file ? req.file.path : null;
 
     if (!image) {
@@ -229,6 +266,11 @@ const createBracelet = asyncHandler(async (req, res) => {
     const bracelet = await Bracelet.create({
         name,
         numerology,
+        shortDescription,
+        meaning,
+        benefits: benefits ? JSON.parse(benefits) : [],
+        whoShouldWear: whoShouldWear ? JSON.parse(whoShouldWear) : [],
+        careInstructions: careInstructions ? JSON.parse(careInstructions) : [],
         image,
         price,
         buyLink,
@@ -266,11 +308,24 @@ const updateBracelet = asyncHandler(async (req, res) => {
     if (bracelet) {
         bracelet.name = req.body.name || bracelet.name;
         bracelet.numerology = req.body.numerology || bracelet.numerology;
+        bracelet.shortDescription =
+            req.body.shortDescription || bracelet.shortDescription;
+        bracelet.meaning = req.body.meaning || bracelet.meaning;
         bracelet.price = req.body.price || bracelet.price;
         bracelet.buyLink = req.body.buyLink || bracelet.buyLink;
 
         if (req.file) {
             bracelet.image = req.file.path;
+        }
+
+        if (req.body.benefits) {
+            bracelet.benefits = JSON.parse(req.body.benefits);
+        }
+        if (req.body.whoShouldWear) {
+            bracelet.whoShouldWear = JSON.parse(req.body.whoShouldWear);
+        }
+        if (req.body.careInstructions) {
+            bracelet.careInstructions = JSON.parse(req.body.careInstructions);
         }
 
         const updatedBracelet = await bracelet.save();

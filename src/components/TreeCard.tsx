@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Tree } from "@/types/collection";
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const TreeCard: React.FC<Props> = ({ tree, onOpenPreview }) => {
+  const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
 
   return (
@@ -16,20 +18,18 @@ const TreeCard: React.FC<Props> = ({ tree, onOpenPreview }) => {
       style={{ minHeight: "520px" }}
       whileHover={{
         y: -5,
-        boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
       }}
-      transition={{ duration: 0.3 }}
+      onClick={() => navigate(`/tree/${(tree as any)._id || tree.id}`)}
     >
-      {/* Image */}
-      <div
-        className="relative mb-4 rounded-2xl overflow-hidden bg-gray-100 cursor-zoom-in group"
-        style={{ aspectRatio: "1 / 1" }}
-        onClick={() => onOpenPreview?.(tree)}
-      >
+      <div className="aspect-square rounded-lg overflow-hidden mb-4 bg-gray-100 relative">
         <img
-          src={tree.image}
+          src={tree.image || "/images/Trees.png"}
           alt={tree.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = "/images/Trees.png";
+          }}
         />
 
         <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

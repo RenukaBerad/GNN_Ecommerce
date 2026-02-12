@@ -17,10 +17,15 @@ const SimpleProductForm: React.FC<SimpleProductFormProps> = ({
 }) => {
     const [formData, setFormData] = useState({
         name: initialData?.name || "",
-        numerology: initialData?.numerology || "", // Using numerology as description/subtitle
+        numerology: initialData?.numerology || "",
+        shortDescription: initialData?.shortDescription || "",
+        meaning: initialData?.meaning || "",
         price: initialData?.price || "",
         buyLink: initialData?.buyLink || "",
         image: null as File | null,
+        benefits: initialData?.benefits?.join("\n") || "",
+        whoShouldWear: initialData?.whoShouldWear?.join("\n") || "",
+        careInstructions: initialData?.careInstructions?.join("\n") || "",
     });
 
     const handleChange = (
@@ -39,13 +44,15 @@ const SimpleProductForm: React.FC<SimpleProductFormProps> = ({
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const data = new FormData();
-        data.append("name", formData.name);
-        data.append("numerology", formData.numerology);
-        data.append("price", formData.price);
-        data.append("buyLink", formData.buyLink);
-        if (formData.image) {
-            data.append("image", formData.image);
-        }
+        Object.entries(formData).forEach(([key, value]) => {
+            if (key === "benefits" || key === "whoShouldWear" || key === "careInstructions") {
+                data.append(key, JSON.stringify(value.split("\n").filter((i: string) => i.trim() !== "")));
+            } else if (key === "image" && value) {
+                data.append(key, value);
+            } else if (key !== "image") {
+                data.append(key, value as string);
+            }
+        });
 
         try {
             if (initialData) {
@@ -68,9 +75,24 @@ const SimpleProductForm: React.FC<SimpleProductFormProps> = ({
                 <input name="price" placeholder="Price (e.g. ₹1,250)" value={formData.price} onChange={handleChange} className="input bg-secondary/50 p-2 rounded" />
             </div>
 
-            <textarea name="numerology" placeholder="Description / Numerology" value={formData.numerology} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded h-24" />
-            <input name="buyLink" placeholder="Buy Link" value={formData.buyLink} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded" />
+            <textarea name="numerology" placeholder="Numerology" value={formData.numerology} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded h-24" />
+            <textarea name="shortDescription" placeholder="Short Description" value={formData.shortDescription} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded h-20" />
+            <textarea name="meaning" placeholder="Meaning" value={formData.meaning} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded h-32" />
 
+            <div className="space-y-2">
+                <label className="block text-sm font-medium">Benefits (One per line)</label>
+                <textarea name="benefits" value={formData.benefits} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded h-24" />
+            </div>
+            <div className="space-y-2">
+                <label className="block text-sm font-medium">Who Should Wear (One per line)</label>
+                <textarea name="whoShouldWear" value={formData.whoShouldWear} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded h-24" />
+            </div>
+            <div className="space-y-2">
+                <label className="block text-sm font-medium">Care Instructions (One per line)</label>
+                <textarea name="careInstructions" value={formData.careInstructions} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded h-24" />
+            </div>
+
+            <input name="buyLink" placeholder="Buy Link" value={formData.buyLink} onChange={handleChange} className="input w-full bg-secondary/50 p-2 rounded" />
 
             <div className="space-y-2">
                 <label className="block text-sm font-medium">Image</label>

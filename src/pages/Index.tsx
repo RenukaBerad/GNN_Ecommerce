@@ -1,10 +1,38 @@
+import { useState, useEffect } from "react";
+import api from "@/lib/api";
 import Navbar from "@/components/Navbar";
 import HeroSlider from "@/components/HeroSlider";
 import ProductSearchSection from "@/components/ProductSearchSection";
 import Footer from "@/components/Footer";
 import CollectionCard from "@/components/CollectionCard";
+import FeaturedCollection from "@/components/FeaturedCollection";
+import ImageGalleryScroll from "@/components/ImageGalleryScroll";
+import { Gemstone } from "@/data/gemstones";
+import { Tree, Bracelet } from "@/types/collection";
 
 const Index = () => {
+  const [gemstones, setGemstones] = useState<Gemstone[]>([]);
+  const [trees, setTrees] = useState<Tree[]>([]);
+  const [bracelets, setBracelets] = useState<Bracelet[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [gemstonesRes, treesRes, braceletsRes] = await Promise.all([
+          api.get("/products/gemstones"),
+          api.get("/products/trees"),
+          api.get("/products/bracelets"),
+        ]);
+        setGemstones(gemstonesRes.data);
+        setTrees(treesRes.data);
+        setBracelets(braceletsRes.data);
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -12,7 +40,7 @@ const Index = () => {
       <ProductSearchSection />
 
       {/* ====== Explore Collections Section ====== */}
-      <section className="py-10 px-2 sm:px-4 md:px-6 lg:px-8">
+      <section className="py-10 px-2 sm:px-4 md:px-6 lg:px-8 bg-cream/30">
         <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4">
             Explore Our Collections
@@ -43,6 +71,16 @@ const Index = () => {
           />
         </div>
       </section>
+
+      {/* ====== Featured Collection (Unified Section) ====== */}
+      <FeaturedCollection
+        gemstones={gemstones}
+        trees={trees}
+        bracelets={bracelets}
+      />
+
+      {/* ====== Infinity Scroll Image Gallery ====== */}
+      <ImageGalleryScroll />
 
       <Footer />
     </div>
