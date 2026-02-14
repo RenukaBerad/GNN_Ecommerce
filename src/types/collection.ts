@@ -6,23 +6,23 @@ export interface Gemstone {
 }
 
 export interface Tree {
-  id: number;
+  _id?: string;
+  id: string | number;
   name: string;
   image: string;
   numerology: string;
-  description: string;
-  price: string; // 👈 ADD THIS
+  price: string;
   buyLink?: string;
 }
 
 export interface Bracelet {
-  id: number;
+  _id?: string;
+  id: string | number;
   name: string;
   image: string;
   numerology: string;
-  description: string;
   price: string;
-  buyLink: string;
+  buyLink?: string;
 }
 
 export type CollectionCategory = "gemstones" | "bracelets" | "trees";
