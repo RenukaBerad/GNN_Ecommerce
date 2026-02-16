@@ -126,8 +126,8 @@ const FeaturedCollection: React.FC<FeaturedCollectionProps> = ({
             <div className="max-w-[1440px] mx-auto px-4">
 
                 {/* Header Section (Title & Tabs) */}
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl md:text-4xl font-sans text-gray-900 mb-6 font-semibold">
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-5xl font-serif text-gray-900 mb-6 font-medium tracking-tight">
                         Find what's meant to be yours
                     </h2>
 

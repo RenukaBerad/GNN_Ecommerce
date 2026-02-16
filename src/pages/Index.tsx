@@ -9,6 +9,8 @@ import FeaturedCollection from "@/components/FeaturedCollection";
 import ImageGalleryScroll from "@/components/ImageGalleryScroll";
 import { Gemstone } from "@/data/gemstones";
 import { Tree, Bracelet } from "@/types/collection";
+import CraftsmanshipSection from "@/components/CraftsmanshipSection";
+import CelebrityReviews from "@/components/CelebrityReviews";
 
 const Index = () => {
   const [gemstones, setGemstones] = useState<Gemstone[]>([]);
@@ -42,7 +44,7 @@ const Index = () => {
       {/* ====== Explore Collections Section ====== */}
       <section className="py-10 px-2 sm:px-4 md:px-6 lg:px-8 bg-cream/30">
         <div className="max-w-7xl mx-auto text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4">
+          <h2 className="text-3xl md:text-5xl font-serif text-gray-900 mb-3 sm:mb-4 font-medium tracking-tight">
             Explore Our Collections
           </h2>
           <p className="text-gray-500 text-sm sm:text-base">
@@ -78,6 +80,12 @@ const Index = () => {
         trees={trees}
         bracelets={bracelets}
       />
+
+      {/* ====== Craftsmanship Section ====== */}
+      <CraftsmanshipSection />
+
+      {/* ====== Celebrity Reviews Section ====== */}
+      <CelebrityReviews />
 
       {/* ====== Infinity Scroll Image Gallery ====== */}
       <ImageGalleryScroll />

@@ -17,6 +17,7 @@ import ManageGemstones from "./pages/admin/ManageGemstones";
 import ManageTrees from "./pages/admin/ManageTrees";
 import ManageBracelets from "./pages/admin/ManageBracelets";
 import SearchResults from "./pages/SearchResults";
+import Checkout from "./pages/Checkout";
 import { AuthProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="/bracelets" element={<Bracelets />} />
             <Route path="/trees" element={<Trees />} />
             <Route path="/search" element={<SearchResults />} />
+            <Route path="/checkout" element={<Checkout />} />
 
             {/* Admin Routes */}
             <Route path="/admin" element={<AdminLogin />} />

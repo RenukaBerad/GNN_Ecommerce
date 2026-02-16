@@ -22,10 +22,12 @@ app.get("/", (req, res) => {
 // Import Routes
 const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 // Use Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/payment", paymentRoutes);
 
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on port ${PORT}`);

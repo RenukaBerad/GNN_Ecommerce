@@ -145,6 +145,7 @@ const BraceletDetail = () => {
                             {/* Action Buttons */}
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <button
+                                    onClick={() => navigate("/checkout", { state: { product: bracelet, type: 'Bracelet' } })}
                                     className="flex-1 px-8 py-4 rounded-full bg-primary text-primary-foreground font-medium text-lg hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 transform active:scale-[0.98]"
                                 >
                                     Buy Now
